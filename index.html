@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>С Днём Рождения, Мама!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        :root {
+            font-size: calc(14px + 0.3vw);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #f8f0ff 100%);
+            color: #5a3d7a;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-0.5rem); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Основные элементы */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            animation: fadeIn 1.5s ease-in-out;
+            width: 100%;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 1rem;
+            color: rgba(255, 105, 180, 0.6);
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            color: #8a4f7d;
+            text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+            font-weight: 300;
+            letter-spacing: 0.1rem;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #b88bb4;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        
+        /* Секции */
+        .section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(0.3rem);
+            border: 0.05rem solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: #8a4f7d;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5rem;
+            height: 0.15rem;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 0.15rem;
+        }
+        
+        p {
+            font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        /* Галерея */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .photo {
+            width: calc(50% - 0.5rem);
+            height: 10rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        @media (min-width: 600px) {
+            .photo {
+                width: calc(33% - 0.7rem);
+                height: 12rem;
+            }
+        }
+        
+        @media (min-width: 900px) {
+            .photo {
+                width: calc(25% - 1rem);
+                height: 10rem;
+            }
+        }
+        
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.15);
+        }
+        
+        .photo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .photo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 192, 203, 0.3), rgba(255, 182, 193, 0.3));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .photo:hover::after {
+            opacity: 1;
+        }
+        
+        /* Цитаты */
+        .quotes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .quote {
+            background: linear-gradient(135deg, rgba(255, 236, 240, 0.8), rgba(248, 240, 255, 0.8));
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            position: relative;
+            box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .quote:hover {
+            transform: translateY(-0.3rem);
+        }
+        
+        .quote::before {
+            content: '\201C';
+            font-size: 3rem;
+            color: rgba(138, 79, 125, 0.1);
+            position: absolute;
+            top: -0.5rem;
+            left: 0.5rem;
+            font-family: serif;
+        }
+        
+        .quote-text {
+            font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+            font-style: italic;
+            color: #7a5a7a;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-weight: bold;
+            color: #b88bb4;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+        }
+        
+        /* Пожелания */
+        .wishes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .wish {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wish:hover {
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .wish-icon {
+            font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+            color: #d4a5c5;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .wish:hover .wish-icon {
+            transform: scale(1.1);
+            color: #8a4f7d;
+        }
+        
+        .wish h3 {
+            font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+            color: #8a4f7d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .wish p {
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            color: #7a5a7a;
+        }
+        
+        /* Финальная секция */
+        .final {
+            text-align: center;
+            position: relative;
+            padding: 3rem 0;
+        }
+        
+        .final h2 {
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            margin-bottom: 1.5rem;
+            color: #8a4f7d;
+        }
+        
+        .final p {
+            font-size: clamp(1rem, 1.3vw, 1.3rem);
+            max-width: 50rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+            color: #8a4f7d;
+            margin-top: 2rem;
+            display: inline-block;
+            transform: rotate(-5deg);
+            text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .cake {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            display: inline-block;
+            margin: 1.5rem 0;
+            animation: pulse 2s infinite, float 6s infinite ease-in-out;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #ff9a9e;
+            opacity: 0;
+            animation: confetti-fall 5s linear infinite;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-5rem) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Кнопка */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2.5rem;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+            margin-top: 1rem;
+            box-shadow: 0 0.3rem 0.8rem rgba(255, 154, 158, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-0.2rem);
+            box-shadow: 0 0.4rem 1rem rgba(255, 154, 158, 0.6);
+            background: linear-gradient(45deg, #fad0c4 0%, #ff9a9e 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <header>
+            <h1>С Днём Рождения, Мама!</h1>
+            <div class="subtitle">Самой любимой, самой дорогой, самой прекрасной!</div>
+            <div class="cake">🎂</div>
+        </header>
+        
+        <section class="section">
+            <h2>Дорогая мамочка!</h2>
+            <p>В этот особенный день я хочу сказать тебе, как сильно я тебя люблю и ценю. Ты — самое дорогое, что у меня есть, мой ангел-хранитель, мой лучший друг и самый мудрый советчик.</p>
+            <p>Твоя любовь согревает меня даже на расстоянии, твоя улыбка делает мир ярче, а твоя забота дает силы идти вперед. Спасибо тебе за все, что ты делаешь для меня!</p>
+        </section>
+        
+        <section class="section">
+            <h2>Воспоминания</h2>
+            <p>Несколько фоточек:</p>
+            
+            <div class="gallery">
+                <div class="photo">
+                    <img src="pic/1.jpg" alt="1">
+                </div>
+                <div class="photo">
+                    <img src="pic/2.jpg" alt="2">
+                </div>
+                <div class="photo">
+                    <img src="pic/3.jpg" alt="3">
+                </div>
+                <div class="photo">
+                    <img src="pic/4.jpg" alt="4">
+                </div>
+                <div class="photo">
+                    <img src="pic/5.jpg" alt="5">
+                </div>
+                <div class="photo">
+                    <img src="pic/6.jpg" alt="6">
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>О тебе говорят</h2>
+            
+            <div class="quotes">
+                <div class="quote">
+                    <p class="quote-text">Мама — это самое прекрасное слово на земле. Это первое слово, которое произносит человек, и оно звучит на всех языках мира одинаково нежно.</p>
+                    <p class="quote-author">— Максим Горький</p>
+                </div>
+                
+                <div class="quote">
+                    <p class="quote-text">Сердце матери — это бездна, в глубине которой всегда найдется прощение.</p>
+                    <p class="quote-author">— Оноре де Бальзак</p>
+                </div>
+                
+                <div class="quote">
+                    <p class="quote-text">Материнская любовь — единственная любовь, которая действительно бескорыстна, не знает ни зависти, ни гордости.</p>
+                    <p class="quote-author">— Франсуа де Ларошфуко</p>
+                </div>
+                
+                <div class="quote">
+                    <p class="quote-text">Бог не мог быть везде, и поэтому он создал матерей.</p>
+                    <p class="quote-author">— Еврейская пословица</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Мои пожелания для тебя</h2>
+            
+            <div class="wishes">
+                <div class="wish">
+                    <div class="wish-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Здоровья</h3>
+                    <p>Крепкого здоровья, бодрости духа и энергии на долгие-долгие годы!</p>
+                </div>
+                
+                <div class="wish">
+                    <div class="wish-icon"><i class="fas fa-laugh-beam"></i></div>
+                    <h3>Радости</h3>
+                    <p>Ярких эмоций, счастливых моментов и поводов для улыбок каждый день!</p>
+                </div>
+                
+                <div class="wish">
+                    <div class="wish-icon"><i class="fas fa-sun"></i></div>
+                    <h3>Тепла</h3>
+                    <p>Тепла в доме, солнечных дней и уютных вечеров в кругу близких!</p>
+                </div>
+                
+                <div class="wish">
+                    <div class="wish-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Исполнения желаний</h3>
+                    <p>Пусть исполнятся все твои мечты, даже те, о которых ты пока не рассказала!</p>
+                </div>
+                
+                <div class="wish">
+                    <div class="wish-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Любви</h3>
+                    <p>Огромной любви от всех, кто тебя окружает, и особенно от меня!</p>
+                </div>
+                
+                <div class="wish">
+                    <div class="wish-icon"><i class="fas fa-magic"></i></div>
+                    <h3>Волшебства</h3>
+                    <p>Немного чуда в повседневности и веры в то, что всё будет прекрасно!</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section final">
+            <div class="confetti" id="confetti"></div>
+            
+            <h2>С Днём Рождения!</h2>
+            <p>Пусть этот год принесет тебе столько радости, счастья и любви, сколько ты подарила мне за всю мою жизнь.</p>
+            <p>Ты — самая лучшая мама на свете, и я бесконечно благодарен судьбе за то, что ты у меня есть!</p>
+            
+            <div class="cake">🎉</div>
+            
+            <div class="signature">Твой любимый сын!</div>
+        </section>
+    </div>
+    
+    <script>
+        // Создаем летающие сердечки
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb', '#ffb6b9'];
+            
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
+                heart.style.animationDuration = (Math.random() * 5 + 3) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Создаем конфетти
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb', '#8a4f7d', '#b88bb4'];
+            
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('confetti-piece');
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                piece.style.animationDelay = (Math.random() * 5) + 's';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.width = (Math.random() * 0.5 + 0.3) + 'rem';
+                piece.style.height = (Math.random() * 0.5 + 0.3) + 'rem';
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confettiContainer.appendChild(piece);
+            }
+        }
+        
+        // Сюрприз при нажатии кнопки
+        function setupSurpriseButton() {
+            const btn = document.getElementById('surpriseBtn');
+            const finalSection = document.querySelector('.final');
+            
+            btn.addEventListener('click', function() {
+                // Анимация кнопки
+                btn.innerHTML = 'Я люблю тебя! ❤';
+                btn.style.animation = 'pulse 0.5s 3';
+                
+                // Добавляем дополнительные эффекты
+                finalSection.style.background = 'linear-gradient(135deg, rgba(255, 236, 240, 0.9), rgba(248, 240, 255, 0.9))';
+                
+                // Создаем дополнительные сердечки
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = '❤';
+                        heart.style.position = 'absolute';
+                        heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                        heart.style.color = '#ff9a9e';
+                        heart.style.left = Math.random() * 100 + '%';
+                        heart.style.top = '80%';
+                        heart.style.opacity = '0';
+                        heart.style.animation = `float ${Math.random() * 3 + 2}s ease-in forwards`;
+                        finalSection.appendChild(heart);
+                        
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 3000);
+                    }, i * 300);
+                }
+            });
+        }
+        
+        // Инициализация
+        window.onload = function() {
+            createHearts();
+            createConfetti();
+            setupSurpriseButton();
+        };
+    </script>
+</body>
+</html>
